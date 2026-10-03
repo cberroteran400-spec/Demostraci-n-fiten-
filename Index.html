@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07110d">
+<meta name="description" content="FitLab - Entrena, progresa y transforma tu cuerpo.">
+<title>FitLab | Fitness</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#050807;
+    --card:#0c1410;
+    --card2:#101b15;
+    --green:#65ff9a;
+    --green2:#27d96b;
+    --text:#f4fff7;
+    --muted:#91a399;
+    --border:rgba(101,255,154,.12);
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 80% 0%,rgba(39,217,107,.13),transparent 30%),
+        linear-gradient(180deg,#050807,#07100b 50%,#050807);
+    color:var(--text);
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(5,8,7,.88);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid var(--border);
+}
+
+.nav{
+    max-width:1200px;
+    margin:auto;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:var(--green);
+    color:#061009;
+    display:grid;
+    place-items:center;
+    font-size:21px;
+    box-shadow:0 0 25px rgba(101,255,154,.25);
+}
+
+.nav-links{
+    display:flex;
+    gap:7px;
+}
+
+.nav-links button{
+    border:0;
+    background:transparent;
+    color:#a8b6ad;
+    padding:10px 13px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.nav-links button:hover,
+.nav-links button.active{
+    color:var(--green);
+    background:rgba(101,255,154,.08);
+}
+
+.profile-mini{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#65ff9a,#168a42);
+    color:#031008;
+    display:grid;
+    place-items:center;
+    font-weight:900;
+}
+
+main{
+    max-width:1200px;
+    margin:auto;
+    padding:25px 18px 100px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    min-height:430px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:30px;
+    align-items:center;
+}
+
+.hero h1{
+    font-size:clamp(42px,7vw,78px);
+    line-height:.95;
+    letter-spacing:-4px;
+    margin-bottom:22px;
+}
+
+.hero h1 span{
+    color:var(--green);
+}
+
+.hero p{
+    max-width:600px;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:28px;
+}
+
+.buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+    padding:14px 20px;
+    border-radius:13px;
+    font-weight:900;
+    transition:.2s;
+}
+
+.btn-primary{
+    background:var(--green);
+    color:#041008;
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(101,255,154,.2);
+}
+
+.btn-secondary{
+    background:#111a15;
+    border:1px solid var(--border);
+    color:white;
+}
+
+.hero-card{
+    background:
+        linear-gradient(145deg,rgba(101,255,154,.12),rgba(8,15,11,.95)),
+        #0a120e;
+    border:1px solid var(--border);
+    border-radius:30px;
+    padding:25px;
+    min-height:340px;
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
+}
+
+.hero-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.badge{
+    background:rgba(101,255,154,.1);
+    color:var(--green);
+    border:1px solid rgba(101,255,154,.18);
+    padding:7px 11px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.progress-circle{
+    width:180px;
+    height:180px;
+    margin:20px auto;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:conic-gradient(var(--green) 0 72%,#17251c 72% 100%);
+    position:relative;
+}
+
+.progress-circle::after{
+    content:"";
+    position:absolute;
+    inset:13px;
+    border-radius:50%;
+    background:#09100c;
+}
+
+.progress-number{
+    position:relative;
+    z-index:2;
+    text-align:center;
+}
+
+.progress-number strong{
+    display:block;
+    font-size:34px;
+}
+
+.progress-number span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:35px 0 18px;
+}
+
+.section-title h2{
+    font-size:26px;
+}
+
+.section-title span{
+    color:var(--green);
+    font-size:13px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.card{
+    background:linear-gradient(145deg,#0c1510,#09100c);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:20px;
+}
+
+.card-icon{
+    width:45px;
+    height:45px;
+    border-radius:13px;
+    background:rgba(101,255,154,.1);
+    display:grid;
+    place-items:center;
+    font-size:21px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+}
+
+.generator{
+    max-width:850px;
+    margin:auto;
+}
+
+.generator-header{
+    text-align:center;
+    padding:30px 0;
+}
+
+.generator-header h1{
+    font-size:42px;
+    margin-bottom:10px;
+}
+
+.generator-header p{
+    color:var(--muted);
+}
+
+.form-card{
+    background:#0b130f;
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:25px;
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:10px;
+    font-weight:bold;
+}
+
+.options{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:9px;
+}
+
+.option{
+    border:1px solid #1a2a20;
+    background:#0a100d;
+    color:#b6c3bb;
+    padding:13px 7px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.option.selected{
+    border-color:var(--green);
+    background:rgba(101,255,154,.09);
+    color:var(--green);
+}
+
+.result{
+    display:none;
+    margin-top:20px;
+}
+
+.workout{
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:12px;
+}
+
+.workout-head{
+    padding:16px;
+    background:#101a14;
+    display:flex;
+    justify-content:space-between;
+}
+
+.exercise{
+    padding:15px 16px;
+    border-top:1px solid rgba(255,255,255,.05);
+    display:flex;
+    justify-content:space-between;
+}
+
+.exercise small{
+    color:var(--muted);
+}
+
+.exercise strong{
+    color:var(--green);
+}
+
+.exercise.done{
+    opacity:.5;
+    text-decoration:line-through;
+}
+
+.exercise button{
+    background:transparent;
+    color:var(--green);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:5px 9px;
+}
+
+.exercise-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.exercise-card{
+    min-height:170px;
+    position:relative;
+    overflow:hidden;
+}
+
+.exercise-card .emoji{
+    font-size:45px;
+    margin-bottom:14px;
+}
+
+.exercise-card span{
+    color:var(--green);
+    font-size:12px;
+    font-weight:bold;
+}
+
+.challenge{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.challenge-card{
+    background:linear-gradient(135deg,#0d1812,#09100c);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+}
+
+.challenge-card h3{
+    font-size:22px;
+    margin:12px 0;
+}
+
+.challenge-card p{
+    color:var(--muted);
+    line-height:1.5;
+    font-size:14px;
+}
+
+.challenge-bar{
+    height:8px;
+    background:#17231b;
+    border-radius:20px;
+    margin:18px 0 8px;
+    overflow:hidden;
+}
+
+.challenge-bar div{
+    height:100%;
+    width:65%;
+    background:var(--green);
+}
+
+.profile{
+    max-width:850px;
+    margin:auto;
+}
+
+.profile-head{
+    background:linear-gradient(135deg,#0d1912,#09100c);
+    border:1px solid var(--border);
+    border-radius:25px;
+    padding:30px;
+    display:flex;
+    gap:25px;
+    align-items:center;
+}
+
+.avatar{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#65ff9a,#15783a);
+    display:grid;
+    place-items:center;
+    color:#061009;
+    font-size:35px;
+    font-weight:900;
+    flex-shrink:0;
+}
+
+.profile-info h2{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.profile-info p{
+    color:var(--muted);
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:15px;
+}
+
+.stat{
+    background:#0c1510;
+    border:1px solid var(--border);
+    padding:20px;
+    text-align:center;
+    border-radius:16px;
+}
+
+.stat strong{
+    display:block;
+    font-size:25px;
+    color:var(--green);
+}
+
+.stat span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translate(-50%,120px);
+    background:#65ff9a;
+    color:#041008;
+    padding:13px 18px;
+    border-radius:12px;
+    font-weight:bold;
+    transition:.3s;
+    z-index:500;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+}
+
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:800px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        padding-top:15px;
+    }
+
+    .hero h1{
+        font-size:52px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .exercise-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .challenge{
+        grid-template-columns:1fr;
+    }
+
+    .options{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .mobile-nav{
+        position:fixed;
+        display:flex;
+        bottom:0;
+        left:0;
+        right:0;
+        z-index:200;
+        background:rgba(5,8,7,.94);
+        backdrop-filter:blur(15px);
+        border-top:1px solid var(--border);
+        justify-content:space-around;
+        padding:8px 5px;
+    }
+
+    .mobile-nav button{
+        border:0;
+        background:transparent;
+        color:#819087;
+        padding:7px 9px;
+        font-size:11px;
+        font-weight:bold;
+    }
+
+    .mobile-nav button.active{
+        color:var(--green);
+    }
+
+    .mobile-nav .nav-icon{
+        display:block;
+        font-size:19px;
+        margin-bottom:3px;
+    }
+
+    .profile-head{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+@media(max-width:430px){
+    main{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    .hero h1{
+        font-size:44px;
+    }
+
+    .exercise-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+        <div class="logo">
+            <div class="logo-icon">⚡</div>
+            FITLAB
+        </div>
+
+        <div class="nav-links">
+            <button class="active" onclick="showPage('home',this)">Inicio</button>
+            <button onclick="showPage('rutinas',this)">Rutinas</button>
+            <button onclick="showPage('ejercicios',this)">Ejercicios</button>
+            <button onclick="showPage('retos',this)">Retos</button>
+            <button onclick="showPage('perfil',this)">Perfil</button>
+        </div>
+
+        <div class="profile-mini">CB</div>
+    </div>
+</header>
+
+<main>
+
+<!-- INICIO -->
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div>
+            <div class="badge">⚡ TU NUEVA ETAPA FITNESS</div>
+
+            <h1>
+                ENTRENA.<br>
+                <span>PROGRESA.</span><br>
+                REPITE.
+            </h1>
+
+            <p>
+                Crea entrenamientos personalizados, descubre ejercicios,
+                completa retos y lleva tu progreso al siguiente nivel.
+            </p>
+
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="showPage('rutinas')">
+                    Crear mi rutina →
+                </button>
+
+                <button class="btn btn-secondary" onclick="showPage('ejercicios')">
+                    Explorar ejercicios
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-card">
+
+            <div class="hero-card-top">
+                <strong>Tu progreso</strong>
+                <span class="badge">ESTA SEMANA</span>
+            </div>
+
+            <div class="progress-circle">
+                <div class="progress-number">
+                    <strong>72%</strong>
+                    <span>objetivo</span>
+                </div>
+            </div>
+
+            <div style="text-align:center;color:#91a399">
+                🔥 5 días consecutivos entrenando
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <h2>Todo en un solo lugar</h2>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-icon">🏋️</div>
+            <h3>Rutinas personalizadas</h3>
+            <p>
+                Genera entrenamientos según tu objetivo, nivel,
+                tiempo y lugar de entrenamiento.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Controla tu progreso</h3>
+            <p>
+                Registra tus entrenamientos y observa cómo avanzas
+                semana tras semana.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <h3>Completa retos</h3>
+            <p>
+                Mantente motivado con desafíos, rachas y objetivos
+                para mejorar constantemente.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RUTINAS -->
+<section id="rutinas" class="page">
+
+    <div class="generator">
+
+        <div class="generator-header">
+            <div class="badge">GENERADOR FITLAB</div>
+            <h1>Crea tu rutina</h1>
+            <p>Configura tu entrenamiento en unos segundos.</p>
+        </div>
+
+        <div class="form-card">
+
+            <div class="form-group">
+                <label>🎯 ¿Cuál es tu objetivo?</label>
+
+                <div class="options" data-group="objetivo">
+                    <button class="option selected" onclick="selectOption(this)">💪 Músculo</button>
+                    <button class="option" onclick="selectOption(this)">🏋️ Fuerza</button>
+                    <button class="option" onclick="selectOption(this)">🔥 Grasa</button>
+                    <button class="option" onclick="selectOption(this)">🏃 Condición</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>📊 Tu nivel</label>
+
+                <div class="options">
+                    <button class="option selected" onclick="selectOption(this)">Principiante</button>
+                    <button class="option" onclick="selectOption(this)">Intermedio</button>
+                    <button class="option" onclick="selectOption(this)">Avanzado</button>
+                    <button class="option" onclick="selectOption(this)">Atleta</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>📍 ¿Dónde entrenas?</label>
+
+                <div class="options">
+                    <button class="option selected" onclick="selectOption(this)">🏠 Casa</button>
+                    <button class="option" onclick="selectOption(this)">🏋️ Gimnasio</button>
+                    <button class="option" onclick="selectOption(this)">🌳 Exterior</button>
+                    <button class="option" onclick="selectOption(this)">💪 Ambos</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>⏱️ ¿Cuánto tiempo tienes?</label>
+
+                <div class="options">
+                    <button class="option selected" onclick="selectOption(this)">15 min</button>
+                    <button class="option" onclick="selectOption(this)">30 min</button>
+                    <button class="option" onclick="selectOption(this)">45 min</button>
+                    <button class="option" onclick="selectOption(this)">60 min</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="width:100%" onclick="generateWorkout()">
+                ⚡ Crear mi rutina
+            </button>
+
+            <div class="result" id="result">
+
+                <div class="section-title">
+                    <h2>Tu entrenamiento</h2>
+                    <span>30 MIN</span>
+                </div>
+
+                <div class="workout">
+
+                    <div class="workout-head">
+                        <strong>🔥 Día 1 — Tren superior</strong>
+                        <span>3 ejercicios</span>
+                    </div>
+
+                    <div class="exercise">
+                        <div>
+                            <strong>Flexiones</strong><br>
+                            <small>3 series × 12 repeticiones</small>
+                        </div>
+                        <button onclick="completeExercise(this)">✓</button>
+                    </div>
+
+                    <div class="exercise">
+                        <div>
+                            <strong>Press de hombros</strong><br>
+                            <small>3 series × 10 repeticiones</small>
+                        </div>
+                        <button onclick="completeExercise(this)">✓</button>
+                    </div>
+
+                    <div class="exercise">
+                        <div>
+                            <strong>Fondos de tríceps</strong><br>
+                            <small>3 series × 12 repeticiones</small>
+                        </div>
+                        <button onclick="completeExercise(this)">✓</button>
+                    </div>
+
+                </div>
+
+                <div class="workout">
+
+                    <div class="workout-head">
+                        <strong>💪 Día 2 — Piernas</strong>
+                        <span>3 ejercicios</span>
+                    </div>
+
+                    <div class="exercise">
+                        <div>
+                            <strong>Sentadillas</strong><br>
+                            <small>4 series × 12 repeticiones</small>
+                        </div>
+                        <button onclick="completeExercise(this)">✓</button>
+                    </div>
+
+                    <div class="exercise">
+                        <div>
+                            <strong>Zancadas</strong><br>
+                            <small>3 series × 10 por pierna</small>
+                        </div>
+                        <button onclick="completeExercise(this)">✓</button>
+                    </div>
+
+                    <div class="exercise">
+                        <div>
+                            <strong>Elevación de pantorrillas</strong><br>
+                            <small>3 series × 15 repeticiones</small>
+                        </div>
+                        <button onclick="completeExercise(this)">✓</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- EJERCICIOS -->
+<section id="ejercicios" class="page">
+
+    <div class="generator-header">
+        <div class="badge">BIBLIOTECA FITNESS</div>
+        <h1>Explora ejercicios</h1>
+        <p>Encuentra ejercicios para cada grupo muscular.</p>
+    </div>
+
+    <div class="exercise-grid">
+
+        <div class="card exercise-card">
+            <div class="emoji">🏋️</div>
+            <span>PECHO</span>
+            <h3>Press de banca</h3>
+            <p>Fuerza y desarrollo del pecho.</p>
+        </div>
+
+        <div class="card exercise-card">
+            <div class="emoji">💪</div>
+            <span>BÍCEPS</span>
+            <h3>Curl con mancuernas</h3>
+            <p>Ejercicio clásico para brazos.</p>
+        </div>
+
+        <div class="card exercise-card">
+            <div class="emoji">🦵</div>
+            <span>PIERNAS</span>
+            <h3>Sentadilla</h3>
+            <p>Trabaja principalmente piernas y glúteos.</p>
+        </div>
+
+        <div class="card exercise-card">
+            <div class="emoji">🔥</div>
+            <span>CORE</span>
+            <h3>Plancha</h3>
+            <p>Fortalece la zona abdominal.</p>
+        </div>
+
+        <div class="card exercise-card">
+            <div class="emoji">🏃</div>
+            <span>CARDIO</span>
+            <h3>Burpees</h3>
+            <p>Ejercicio de alta intensidad.</p>
+        </div>
+
+        <div class="card exercise-card">
+            <div class="emoji">🏋️‍♂️</div>
+            <span>ESPALDA</span>
+            <h3>Dominadas</h3>
+            <p>Excelente ejercicio para la espalda.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- RETOS -->
+<section id="retos" class="page">
+
+    <div class="generator-header">
+        <div class="badge">DESAFÍOS FITLAB</div>
+        <h1>Reta tus límites</h1>
+        <p>Pequeños objetivos. Grandes resultados.</p>
+    </div>
+
+    <div class="challenge">
+
+        <div class="challenge-card">
+            <div style="font-size:42px">🔥</div>
+            <h3>Reto 30 días</h3>
+            <p>
+                Entrena durante 30 días y construye una racha
+                que no quieras romper.
+            </p>
+
+            <div class="challenge-bar">
+                <div></div>
+            </div>
+
+            <small style="color:#91a399">19 / 30 días</small>
+
+            <br><br>
+
+            <button class="btn btn-primary" onclick="joinChallenge(this)">
+                Continuar reto
+            </button>
+        </div>
+
+        <div class="challenge-card">
+            <div style="font-size:42px">💪</div>
+            <h3>100 flexiones</h3>
+            <p>
+                Acumula 100 flexiones y completa uno de los
+                primeros desafíos de FitLab.
+            </p>
+
+            <div class="challenge-bar">
+                <div style="width:42%"></div>
+            </div>
+
+            <small style="color:#91a399">42 / 100</small>
+
+            <br><br>
+
+            <button class="btn btn-secondary" onclick="joinChallenge(this)">
+                Participar
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PERFIL -->
+<section id="perfil" class="page">
+
+    <div class="profile">
+
+        <div class="generator-header">
+            <div class="badge">MI PERFIL</div>
+            <h1>Tu progreso</h1>
+        </div>
+
+        <div class="profile-head">
+
+            <div class="avatar">CB</div>
+
+            <div class="profile-info">
+                <h2>Carlos Berroteran</h2>
+                <p>Miembro de FitLab · Nivel principiante</p>
+
+                <div style="margin-top:15px">
+                    <button class="btn btn-secondary" onclick="editProfile()">
+                        ✏️ Editar perfil
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong id="workoutCount">12</strong>
+                <span>Entrenamientos</span>
+            </div>
+
+            <div class="stat">
+                <strong>5</strong>
+                <span>Racha actual</span>
+            </div>
+
+            <div class="stat">
+                <strong>720</strong>
+                <span>Minutos</span>
+            </div>
+
+        </div>
+
+        <div class="section-title">
+            <h2>🏆 Logros</h2>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="card-icon">🔥</div>
+                <h3>Primera racha</h3>
+                <p>Entrenaste durante 5 días consecutivos.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💪</div>
+                <h3>Primer entrenamiento</h3>
+                <p>Completaste tu primer entrenamiento.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Constancia</h3>
+                <p>Superaste 10 entrenamientos.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- NAVEGACIÓN MÓVIL -->
+
+<nav class="mobile-nav">
+
+    <button class="active" onclick="showPage('home',this)">
+        <span class="nav-icon">🏠</span>
+        Inicio
+    </button>
+
+    <button onclick="showPage('rutinas',this)">
+        <span class="nav-icon">🏋️</span>
+        Rutinas
+    </button>
+
+    <button onclick="showPage('ejercicios',this)">
+        <span class="nav-icon">🔥</span>
+        Ejercicios
+    </button>
+
+    <button onclick="showPage('retos',this)">
+        <span class="nav-icon">🏆</span>
+        Retos
+    </button>
+
+    <button onclick="showPage('perfil',this)">
+        <span class="nav-icon">👤</span>
+        Perfil
+    </button>
+
+</nav>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+function showPage(pageId,button){
+
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    const page=document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-links button,.mobile-nav button")
+    .forEach(btn=>btn.classList.remove("active"));
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function selectOption(button){
+
+    const parent=button.parentElement;
+
+    parent.querySelectorAll(".option").forEach(option=>{
+        option.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+}
+
+
+function generateWorkout(){
+
+    const result=document.getElementById("result");
+
+    result.style.display="block";
+
+    showToast("⚡ ¡Tu rutina fue creada!");
+
+    setTimeout(()=>{
+        result.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
+    },150);
+}
+
+
+function completeExercise(button){
+
+    const exercise=button.closest(".exercise");
+
+    exercise.classList.toggle("done");
+
+    if(exercise.classList.contains("done")){
+        button.innerHTML="✓";
+        showToast("💪 ¡Ejercicio completado!");
+    }else{
+        showToast("Ejercicio marcado nuevamente como pendiente");
+    }
+}
+
+
+function joinChallenge(button){
+
+    button.textContent="✓ Participando";
+
+    button.classList.remove("btn-secondary");
+    button.classList.add("btn-primary");
+
+    showToast("🏆 ¡Te uniste al reto!");
+}
+
+
+function editProfile(){
+
+    const name=prompt(
+        "Escribe tu nombre:",
+        "Carlos Berroteran"
+    );
+
+    if(name && name.trim()){
+
+        document.querySelector(".profile-info h2").textContent=
+            name.trim();
+
+        showToast("Perfil actualizado");
+    }
+}
+
+
+function showToast(message){
+
+    const toast=document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },2200);
+}
+
+</script>
+
+</body>
+</html>
